@@ -1,0 +1,61 @@
+#databaseChangeLog:
+#  - includeAll:
+#      path: db/changelog/
+
+databaseChangeLog:
+  - changeSet:
+      id: createTable
+      author: pouya
+      changes:
+        - createTable:
+            tableName: product
+            columns:
+              - column:
+                  name: id
+                  type: bigint
+                  autoIncrement: true
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: name
+                  type: varchar(255)
+                  constraints:
+                    nullable: false
+        - tagDatabase:
+            - tag: version_1.3
+      rollback:
+        - sql:
+            sql: drop table product;
+  - changeSet:
+      id: addColumn
+      author: pouya
+      changes:
+        - addColumn:
+            tableName: product
+            columns:
+              - column:
+                  name: description
+                  type: varchar(255)
+                  constraints:
+                    nullable: true
+  - changeSet:
+      id: createPerson
+      author: pouya
+      changes:
+        - sqlFile:
+            stripComments: true
+            path: db/changelog/1400-06-30/create-person.sql
+      rollback:
+        - sqlFile:
+            stripComments: true
+            path: db/changelog/1400-06-30/rollback-person.sql
+#  - changeSet:
+#      id: productRollback
+#      author: pouya
+#      changes:
+#        - tagDatabase:
+#            tag: version_1.3
+#      rollback:
+#        - dropTable:
+#            tableName: product
