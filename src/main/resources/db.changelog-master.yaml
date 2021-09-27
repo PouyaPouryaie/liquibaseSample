@@ -50,12 +50,3 @@ databaseChangeLog:
         - sqlFile:
             stripComments: true
             path: db/changelog/1400-06-30/rollback-person.sql
-#  - changeSet:
-#      id: productRollback
-#      author: pouya
-#      changes:
-#        - tagDatabase:
-#            tag: version_1.3
-#      rollback:
-#        - dropTable:
-#            tableName: product
