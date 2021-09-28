@@ -4,16 +4,21 @@
 
 databaseChangeLog:
   - changeSet:
-      id: createTable
+      id: createProduct_1
       author: pouya
       changes:
+        - createSequence:
+            schemaName: public
+            startValue: 1
+            incrementBy: 1
+            sequenceName: product_seq
         - createTable:
             tableName: product
             columns:
               - column:
                   name: id
                   type: bigint
-                  autoIncrement: true
+#                  autoIncrement: true
                   constraints:
                     primaryKey: true
                     nullable: false
@@ -23,12 +28,12 @@ databaseChangeLog:
                   constraints:
                     nullable: false
         - tagDatabase:
-            - tag: version_1.3
+            - tag: version_1.0
       rollback:
         - sql:
             sql: drop table product;
   - changeSet:
-      id: addColumn
+      id: addColumn_1
       author: pouya
       changes:
         - addColumn:
@@ -37,10 +42,11 @@ databaseChangeLog:
               - column:
                   name: description
                   type: varchar(255)
+                  defaultValue: user
                   constraints:
                     nullable: true
   - changeSet:
-      id: createPerson
+      id: createPerson_1
       author: pouya
       changes:
         - sqlFile:
